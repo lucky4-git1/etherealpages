@@ -1,0 +1,21 @@
+# Git ignore for Java + Node project
+node_modules/
+dist/
+target/
+*.class
+*.jar
+*.war
+.env
+.env.local
+.env.development.local
+.env.production.local
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/
+.jdk/
+.mvn/
+*.jar
+*.exe

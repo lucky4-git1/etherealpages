@@ -1,0 +1,64 @@
+package com.bookstore.api.controller;
+
+import com.bookstore.api.model.CartItem;
+import com.bookstore.api.model.User;
+import com.bookstore.api.repository.CartItemRepository;
+import com.bookstore.api.repository.CartRepository;
+import com.bookstore.api.repository.UserRepository;
+import com.bookstore.api.repository.BookRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/cart")
+@RequiredArgsConstructor
+public class CartController {
+
+    private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
+    private final BookRepository bookRepository;
+    private final UserRepository userRepository;
+
+    private User getCurrentUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(email).orElseThrow();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CartItem>> getCart() {
+        User user = getCurrentUser();
+        var cart = cartRepository.findByUserId(user.getId()).orElseThrow();
+        return ResponseEntity.ok(cartItemRepository.findByCartId(cart.getId()));
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<CartItem> addToCart(@RequestParam Long bookId, @RequestParam Integer quantity) {
+        User user = getCurrentUser();
+        var cart = cartRepository.findByUserId(user.getId()).orElseThrow();
+        var book = bookRepository.findById(bookId).orElseThrow();
+
+        var existingItem = cartItemRepository.findByCartIdAndBookId(cart.getId(), bookId);
+        if (existingItem.isPresent()) {
+            CartItem item = existingItem.get();
+            item.setQuantity(item.getQuantity() + quantity);
+            return ResponseEntity.ok(cartItemRepository.save(item));
+        }
+
+        CartItem newItem = CartItem.builder()
+                .cart(cart)
+                .book(book)
+                .quantity(quantity)
+                .build();
+        return ResponseEntity.ok(cartItemRepository.save(newItem));
+    }
+
+    @DeleteMapping("/remove/{itemId}")
+    public ResponseEntity<Void> removeFromCart(@PathVariable Long itemId) {
+        cartItemRepository.deleteById(itemId);
+        return ResponseEntity.ok().build();
+    }
+}

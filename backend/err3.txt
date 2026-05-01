@@ -1,0 +1,2 @@
+﻿[INFO] Building bookstore 0.0.1-SNAPSHOT
+[INFO] BUILD SUCCESS

@@ -1,0 +1,21 @@
+﻿[ERROR] COMPILATION ERROR : 
+[ERROR] /C:/Users/lucky/Desktop/java web app/backend/src/main/java/com/bookstore/api/security/SecurityConfiguration.java:[56,50] constructor DaoAuthenticationProvider in class org.springframework.security.authentication.dao.DaoAuthenticationProvider cannot be applied to given types;
+[ERROR] /C:/Users/lucky/Desktop/java web app/backend/src/main/java/com/bookstore/api/security/SecurityConfiguration.java:[57,21] cannot find symbol
+  symbol:   method setUserDetailsService(com.bookstore.api.security.UserDetailsServiceImpl)
+  location: variable authProvider of type org.springframework.security.authentication.dao.DaoAuthenticationProvider
+[INFO] 2 errors 
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project api: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/lucky/Desktop/java web app/backend/src/main/java/com/bookstore/api/security/SecurityConfiguration.java:[56,50] constructor DaoAuthenticationProvider in class org.springframework.security.authentication.dao.DaoAuthenticationProvider cannot be applied to given types;
+[ERROR]   required: org.springframework.security.core.userdetails.UserDetailsService
+[ERROR]   found:    no arguments
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/lucky/Desktop/java web app/backend/src/main/java/com/bookstore/api/security/SecurityConfiguration.java:[57,21] cannot find symbol
+[ERROR]   symbol:   method setUserDetailsService(com.bookstore.api.security.UserDetailsServiceImpl)
+[ERROR]   location: variable authProvider of type org.springframework.security.authentication.dao.DaoAuthenticationProvider
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
