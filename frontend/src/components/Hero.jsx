@@ -64,7 +64,7 @@ const Hero = () => {
             </Link>
             <Link
               to="/bestsellers"
-              className="flex items-center justify-center gap-2 h-14 px-8 rounded-full bg-surface-card border border-cream-dark text-white font-medium text-base transition-all hover:bg-surface-warm flex-shrink-0 w-full sm:w-auto shadow-sm"
+              className="flex items-center justify-center gap-2 h-14 px-8 rounded-full bg-bronze-dark border-2 border-bronze text-white font-medium text-base transition-all hover:bg-bronze hover:shadow-lg flex-shrink-0 w-full sm:w-auto"
             >
               View Bestsellers
             </Link>
