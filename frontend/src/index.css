@@ -4,37 +4,37 @@
   --font-sans: 'Outfit', 'Inter', sans-serif;
   --font-serif: 'Playfair Display', 'Georgia', serif;
   
-  /* Vintage Color Palette */
-  --color-dusty-rose: #C496A1;
-  --color-dusty-rose-light: #d4adb6;
-  --color-dusty-rose-dark: #a87a86;
+  /* Vintage Color Palette - Darker variants */
+  --color-dusty-rose: #9e6b78;
+  --color-dusty-rose-light: #C496A1;
+  --color-dusty-rose-dark: #7a4f5a;
   
   --color-muted-sage: #919D85;
   --color-muted-sage-light: #a8b29e;
-  --color-muted-sage-dark: #6d7a62;
+  --color-muted-sage-dark: #5a6650;
   
-  --color-lavender: #8E88A3;
-  --color-lavender-light: #a9a4ba;
-  --color-lavender-dark: #6e6888;
+  --color-lavender: #6e6888;
+  --color-lavender-light: #8E88A3;
+  --color-lavender-dark: #504b66;
   
   --color-cream: #EBE1C6;
   --color-cream-light: #f5f0e0;
-  --color-cream-dark: #d9ccab;
+  --color-cream-dark: #c4b896;
   
-  --color-bronze: #81785A;
-  --color-bronze-light: #9e9478;
-  --color-bronze-dark: #5e5740;
+  --color-bronze: #5e5740;
+  --color-bronze-light: #81785A;
+  --color-bronze-dark: #3d3829;
   
-  /* Surface colors */
-  --color-surface: #faf6ee;
-  --color-surface-warm: #f0e8d4;
-  --color-surface-card: #ffffff;
-  --color-surface-muted: #f5efe3;
+  /* Surface colors - darker, richer tones */
+  --color-surface: #f0e8d4;
+  --color-surface-warm: #e3d9c0;
+  --color-surface-card: #faf6ee;
+  --color-surface-muted: #e8dece;
   
-  /* Text colors - light for contrast against sage bg */
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #e8e4d9;
-  --color-text-muted: #c8c4b8;
+  /* Text colors - dark black for maximum pop */
+  --color-text-primary: #1a1612;
+  --color-text-secondary: #2d2821;
+  --color-text-muted: #5a5347;
 
   --animate-fade-in: fade-in 0.5s ease-out;
   --animate-slide-up: slide-up 0.5s ease-out;
@@ -65,18 +65,18 @@
     overflow-x: hidden;
   }
   
-  /* Custom scrollbar for better aesthetics */
+  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-cream-light);
+    background: var(--color-muted-sage-dark);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-cream-dark);
+    background: var(--color-bronze);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-bronze-light);
+    background: var(--color-bronze-dark);
   }
 }

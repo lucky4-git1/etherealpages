@@ -24,7 +24,7 @@ const Hero = () => {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-card/80 border border-cream-dark/50 backdrop-blur-md mb-8 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-muted-sage animate-ping absolute"></span>
               <span className="flex h-2 w-2 rounded-full bg-muted-sage relative"></span>
-              <span className="text-xs font-medium text-cream uppercase tracking-wider">Over 10,000+ Premium Books</span>
+              <span className="text-xs font-medium text-text-muted uppercase tracking-wider">Over 10,000+ Premium Books</span>
             </div>
           </motion.div>
 
@@ -32,7 +32,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-[1.1] mb-6"
+            className="text-5xl md:text-7xl font-bold tracking-tight text-text-primary leading-[1.1] mb-6"
           >
             Discover worlds <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-dusty-rose to-lavender">
@@ -109,7 +109,7 @@ const Hero = () => {
               <div className="w-72 h-96 bg-gradient-to-br from-dusty-rose to-lavender rounded-xl shadow-2xl shadow-dusty-rose/20 border border-white/20 relative overflow-hidden transform -rotate-6 transition-transform hover:rotate-0 hover:scale-105 duration-500">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1614544048536-0d28caf77f41?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
                 <div className="absolute inset-0 p-8 flex flex-col justify-between">
-                  <div className="w-8 h-8 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center"><BookOpen className="w-4 h-4 text-white" /></div>
+                  <div className="w-8 h-8 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center"><BookOpen className="w-4 h-4 text-text-primary" /></div>
                   <div>
                     <h3 className="text-white font-bold text-2xl font-serif leading-tight">The Quantum<br/>Paradox</h3>
                     <p className="text-white/70 mt-2 font-medium">Stella Vance</p>

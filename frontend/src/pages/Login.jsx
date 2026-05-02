@@ -50,7 +50,7 @@ const Login = () => {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md relative z-10">
         <div className="bg-surface-card/90 backdrop-blur-xl border border-cream-dark/50 rounded-3xl p-8 shadow-2xl shadow-dusty-rose/5">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white tracking-tight mb-2">
+            <h2 className="text-3xl font-bold text-text-primary tracking-tight mb-2">
               {isLogin ? "Welcome Back" : "Create Account"}
             </h2>
             <p className="text-text-secondary">
@@ -63,24 +63,24 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
               <div>
-                <label className="block text-sm font-medium text-cream mb-2">Full Name</label>
+                <label className="block text-sm font-medium text-text-muted mb-2">Full Name</label>
                 <input 
                   type="text" 
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-surface border border-cream-dark rounded-xl px-4 py-3 text-white placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-dusty-rose/50"
+                  className="w-full bg-surface border border-cream-dark rounded-xl px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-dusty-rose/50"
                   placeholder="John Doe"
                   required
                 />
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-cream mb-2">Email Address</label>
+              <label className="block text-sm font-medium text-text-muted mb-2">Email Address</label>
               <input 
                 type="email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-surface border border-cream-dark rounded-xl px-4 py-3 text-white placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-dusty-rose/50"
+                className="w-full bg-surface border border-cream-dark rounded-xl px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-dusty-rose/50"
                 placeholder="you@example.com"
                 required
               />
@@ -88,14 +88,14 @@ const Login = () => {
             
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="block text-sm font-medium text-cream">Password</label>
+                <label className="block text-sm font-medium text-text-muted">Password</label>
                 {isLogin && <a href="#" className="text-xs text-dusty-rose font-medium hover:text-dusty-rose-dark">Forgot password?</a>}
               </div>
               <input 
                 type="password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-surface border border-cream-dark rounded-xl px-4 py-3 text-white placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-dusty-rose/50"
+                className="w-full bg-surface border border-cream-dark rounded-xl px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-dusty-rose/50"
                 placeholder="••••••••"
                 required
               />

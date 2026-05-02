@@ -21,7 +21,7 @@ const Wishlist = () => {
     <div className="pt-24 pb-12 min-h-screen">
       <div className="container mx-auto px-6">
         <header className="mb-12">
-          <h1 className="text-4xl font-bold text-white mb-2">My Wishlist</h1>
+          <h1 className="text-4xl font-bold text-text-primary mb-2">My Wishlist</h1>
           <p className="text-text-secondary">You have {wishlist.length} items saved for later</p>
         </header>
 
@@ -34,7 +34,7 @@ const Wishlist = () => {
             <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-surface-warm text-text-muted mb-6">
               <Heart className="h-10 w-10" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-4">Your wishlist is empty</h2>
+            <h2 className="text-2xl font-bold text-text-primary mb-4">Your wishlist is empty</h2>
             <p className="text-text-secondary mb-8 max-w-md mx-auto">
               Save books you're interested in so you can easily find them later and add them to your cart.
             </p>
@@ -57,13 +57,13 @@ const Wishlist = () => {
                 </div>
                 <div className="flex flex-col flex-grow">
                   <div className="flex justify-between items-start">
-                    <h3 className="font-bold text-white leading-tight mb-1">{book.title}</h3>
+                    <h3 className="font-bold text-text-primary leading-tight mb-1">{book.title}</h3>
                     <button onClick={() => toggleWishlist(book.id)} className="text-dusty-rose hover:text-dusty-rose-dark p-1">
                       <Heart className="w-5 h-5 fill-current" />
                     </button>
                   </div>
                   <p className="text-sm text-text-muted mb-4">{book.author}</p>
-                  <p className="text-lg font-bold text-white mb-4">{formatINR(book.price)}</p>
+                  <p className="text-lg font-bold text-text-primary mb-4">{formatINR(book.price)}</p>
                   <div className="mt-auto flex gap-2">
                     <button 
                       onClick={() => addToCart(book)}
