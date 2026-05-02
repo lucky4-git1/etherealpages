@@ -2,6 +2,7 @@ services:
   - type: web
     name: ethereal-pages-backend
     env: docker
+    rootDir: backend
     plan: free
     region: oregon
     envVars:
