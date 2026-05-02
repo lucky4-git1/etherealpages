@@ -1,6 +1,7 @@
 package com.bookstore.api.controller;
 
 import com.bookstore.api.model.CartItem;
+import com.bookstore.api.model.Cart;
 import com.bookstore.api.model.User;
 import com.bookstore.api.repository.CartItemRepository;
 import com.bookstore.api.repository.CartRepository;

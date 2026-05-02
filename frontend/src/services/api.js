@@ -28,11 +28,11 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Handle authentication and authorization errors (expired token usually results in 403 in this Spring config)
-    if (error.response?.status === 401 || error.response?.status === 403) {
+    // Handle authentication errors - only logout on 401 (truly expired/invalid token)
+    // Do NOT logout on 403 - that could be a backend issue, not an auth issue
+    if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      // Redirect to login if not already there
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';
       }
