@@ -116,7 +116,7 @@ const Checkout = () => {
                 </div>
                 
                 <button 
-                  onClick={() => removeFromCart(item.id, item.id)}
+                  onClick={() => removeFromCart(item.id, item.cartItemId)}
                   className="p-2 text-rose-500/80 hover:text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all"
                 >
                   <Trash2 className="w-5 h-5" />

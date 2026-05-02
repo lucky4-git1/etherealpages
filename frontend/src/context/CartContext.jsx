@@ -31,11 +31,19 @@ export const CartProvider = ({ children }) => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-      setCartItems(response.data || []);
+      
+      // Flatten the backend CartItem structure: { id: CartItemId, book: { ...BookDetails }, quantity: N }
+      // into a unified structure: { ...BookDetails, cartItemId: CartItemId, quantity: N }
+      const normalizedItems = (response.data || []).map(item => ({
+        ...item.book,
+        cartItemId: item.id, // Store the actual CartItem ID for deletions
+        quantity: item.quantity
+      }));
+      
+      setCartItems(normalizedItems);
     } catch (err) {
       console.error('Error fetching cart:', err);
       setError('Failed to load cart');
-      // Fall back to local state
     } finally {
       setLoading(false);
     }
@@ -88,7 +96,7 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const removeFromCart = async (itemId, bookId) => {
+  const removeFromCart = async (bookId, cartItemId) => {
     try {
       setError(null);
 
@@ -98,12 +106,17 @@ export const CartProvider = ({ children }) => {
         return;
       }
 
-      // Call backend API
-      await axios.delete(`${API_URL}/api/cart/remove/${itemId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
+      // Use the actual backend ID (cartItemId) if available, otherwise find it
+      const targetId = cartItemId || cartItems.find(item => item.id === bookId)?.cartItemId;
+
+      if (targetId) {
+        // Call backend API
+        await axios.delete(`${API_URL}/api/cart/remove/${targetId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+      }
 
       // Refresh cart after removing
       await fetchCart();
