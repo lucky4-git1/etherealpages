@@ -28,12 +28,14 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Handle authentication errors
-    if (error.response?.status === 401) {
+    // Handle authentication and authorization errors (expired token usually results in 403 in this Spring config)
+    if (error.response?.status === 401 || error.response?.status === 403) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      // Optionally redirect to login
-      window.location.href = '/login';
+      // Redirect to login if not already there
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
     }
 
     // Handle other errors

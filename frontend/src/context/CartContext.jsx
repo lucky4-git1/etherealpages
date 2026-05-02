@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import { api } from '../services/api';
 import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
@@ -26,17 +26,12 @@ export const CartProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`${API_URL}/api/cart`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
+      const response = await api.cart.getCart();
       
-      // Flatten the backend CartItem structure: { id: CartItemId, book: { ...BookDetails }, quantity: N }
-      // into a unified structure: { ...BookDetails, cartItemId: CartItemId, quantity: N }
+      // Flatten the backend CartItem structure
       const normalizedItems = (response.data || []).map(item => ({
         ...item.book,
-        cartItemId: item.id, // Store the actual CartItem ID for deletions
+        cartItemId: item.id,
         quantity: item.quantity
       }));
       
@@ -54,7 +49,6 @@ export const CartProvider = ({ children }) => {
       setError(null);
       
       if (!user) {
-        // Not authenticated - add to local state only
         setCartItems(prevItems => {
           const existing = prevItems.find(item => item.id === book.id);
           if (existing) {
@@ -67,23 +61,12 @@ export const CartProvider = ({ children }) => {
         return;
       }
 
-      // Call backend API
-      const response = await axios.post(
-        `${API_URL}/api/cart/add?bookId=${book.id}&quantity=1`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        }
-      );
-
-      // Refresh cart after adding
+      await api.cart.addItem(book.id, 1);
       await fetchCart();
     } catch (err) {
       console.error('Error adding to cart:', err);
       setError('Failed to add item to cart');
-      // Still add to local state as fallback
+      // Fallback
       setCartItems(prevItems => {
         const existing = prevItems.find(item => item.id === book.id);
         if (existing) {
@@ -101,29 +84,20 @@ export const CartProvider = ({ children }) => {
       setError(null);
 
       if (!user) {
-        // Not authenticated - remove from local state only
         setCartItems(prevItems => prevItems.filter(item => item.id !== bookId));
         return;
       }
 
-      // Use the actual backend ID (cartItemId) if available, otherwise find it
       const targetId = cartItemId || cartItems.find(item => item.id === bookId)?.cartItemId;
 
       if (targetId) {
-        // Call backend API
-        await axios.delete(`${API_URL}/api/cart/remove/${targetId}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        });
+        await api.cart.removeItem(targetId);
       }
 
-      // Refresh cart after removing
       await fetchCart();
     } catch (err) {
       console.error('Error removing from cart:', err);
       setError('Failed to remove item from cart');
-      // Still remove from local state as fallback
       setCartItems(prevItems => prevItems.filter(item => item.id !== bookId));
     }
   };

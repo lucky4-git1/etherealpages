@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import { api } from '../services/api';
 import { useAuth } from './AuthContext';
 
 const WishlistContext = createContext();
@@ -25,11 +25,7 @@ export const WishlistProvider = ({ children }) => {
         try {
             setLoading(true);
             setError(null);
-            const response = await axios.get(`${API_URL}/api/wishlist`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            });
+            const response = await api.wishlist.getWishlist();
             setWishlist(response.data || []);
         } catch (error) {
             console.error("Error fetching wishlist", error);
@@ -46,15 +42,7 @@ export const WishlistProvider = ({ children }) => {
         }
         try {
             setError(null);
-            const response = await axios.post(
-                `${API_URL}/api/wishlist/${bookId}`,
-                {},
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
-                }
-            );
+            const response = await api.wishlist.toggleWishlist(bookId);
             
             // Update local state
             const isNowLiked = response.data.liked;
