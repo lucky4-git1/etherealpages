@@ -148,6 +148,10 @@ export const CartProvider = ({ children }) => {
     return total + (price * (item.quantity || 1));
   }, 0);
 
+  const isInCart = (bookId) => {
+    return cartItems.some(item => item.id === bookId);
+  };
+
   return (
     <CartContext.Provider value={{ 
       cartItems, 
@@ -155,6 +159,7 @@ export const CartProvider = ({ children }) => {
       removeFromCart, 
       updateQuantity, 
       clearCart,
+      isInCart,
       cartCount, 
       cartTotal,
       loading,

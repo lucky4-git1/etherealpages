@@ -19,9 +19,10 @@ const formatINR = (amount) => {
 const BookCard = ({ book }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
-  const { addToCart } = useCart();
+  const { addToCart, isInCart } = useCart();
   const { toggleWishlist, isLiked } = useWishlist();
   
+  const inCart = isInCart(book.id);
   const liked = isLiked(book.id);
   const price = typeof book.price === 'number' ? book.price : parseFloat(book.price);
   const defaultImage = 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800&auto=format&fit=crop';
@@ -46,12 +47,12 @@ const BookCard = ({ book }) => {
     >
       {/* Dynamic glow effect */}
       <div 
-        className="absolute inset-0 bg-gradient-to-br from-fuchsia-600/20 to-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none" 
+        className={`absolute inset-0 bg-gradient-to-br ${inCart ? 'from-emerald-600/20 to-teal-600/20' : 'from-fuchsia-600/20 to-indigo-600/20'} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none`}
       />
       
       {/* Category Badge */}
       <div className="absolute top-4 left-4 z-20">
-        <span className="px-3 py-1 text-xs font-semibold bg-slate-950/80 backdrop-blur-md text-fuchsia-300 rounded-full border border-fuchsia-500/20 shadow-sm">
+        <span className={`px-3 py-1 text-xs font-semibold bg-slate-950/80 backdrop-blur-md ${inCart ? 'text-emerald-400 border-emerald-500/20' : 'text-fuchsia-300 border-fuchsia-500/20'} rounded-full border shadow-sm`}>
           {book.category || 'Books'}
         </span>
       </div>
@@ -89,7 +90,7 @@ const BookCard = ({ book }) => {
 
       {/* Content */}
       <div className="p-5 flex flex-col flex-grow z-10 bg-slate-900">
-        <h3 className="font-bold text-lg text-white mb-1 line-clamp-2 group-hover:text-fuchsia-400 transition-colors">
+        <h3 className={`font-bold text-lg text-white mb-1 line-clamp-2 transition-colors ${inCart ? 'group-hover:text-emerald-400' : 'group-hover:text-fuchsia-400'}`}>
           {book.title}
         </h3>
         <p className="text-sm text-slate-400 mb-4 line-clamp-1">{book.author || 'Unknown'}</p>
@@ -101,12 +102,16 @@ const BookCard = ({ book }) => {
           <button 
             onClick={() => addToCart(book)}
             disabled={!book.stock || book.stock === 0}
-            className="flex items-center gap-2 bg-slate-800 hover:bg-fuchsia-600 disabled:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-2.5 rounded-xl transition-colors min-w-[40px] overflow-hidden group/btn"
-            title={book.stock === 0 ? 'Out of stock' : 'Add to Cart'}
+            className={`flex items-center gap-2 ${inCart ? 'bg-emerald-600 shadow-[0_0_15px_rgba(16,185,129,0.4)]' : 'bg-slate-800 hover:bg-fuchsia-600'} disabled:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-2.5 rounded-xl transition-all min-w-[40px] overflow-hidden group/btn`}
+            title={book.stock === 0 ? 'Out of stock' : (inCart ? 'Added to Cart' : 'Add to Cart')}
           >
-            <ShoppingCart className="w-4 h-4 flex-shrink-0" />
+            {inCart ? (
+              <Star className="w-4 h-4 flex-shrink-0 fill-current text-white animate-bounce" />
+            ) : (
+              <ShoppingCart className="w-4 h-4 flex-shrink-0" />
+            )}
             <span className="text-sm font-medium pr-1 whitespace-nowrap hidden group-hover/btn:block">
-              {book.stock === 0 ? 'Out' : 'Add'}
+              {book.stock === 0 ? 'Out' : (inCart ? 'Added' : 'Add')}
             </span>
           </button>
         </div>
