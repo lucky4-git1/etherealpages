@@ -43,23 +43,23 @@ const BookCard = ({ book }) => {
       transition={{ duration: 0.5 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(217,70,239,0.3)] hover:border-slate-700"
+      className={`group relative flex flex-col bg-surface-card border rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(196,150,161,0.25)] ${inCart ? 'border-muted-sage/40' : 'border-cream-dark/50'} hover:border-dusty-rose/30`}
     >
       {/* Dynamic glow effect */}
       <div 
-        className={`absolute inset-0 bg-gradient-to-br ${inCart ? 'from-emerald-600/20 to-teal-600/20' : 'from-fuchsia-600/20 to-indigo-600/20'} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none`}
+        className={`absolute inset-0 bg-gradient-to-br ${inCart ? 'from-muted-sage/10 to-muted-sage/5' : 'from-dusty-rose/5 to-lavender/5'} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none`}
       />
       
       {/* Category Badge */}
       <div className="absolute top-4 left-4 z-20">
-        <span className={`px-3 py-1 text-xs font-semibold bg-slate-950/80 backdrop-blur-md ${inCart ? 'text-emerald-400 border-emerald-500/20' : 'text-fuchsia-300 border-fuchsia-500/20'} rounded-full border shadow-sm`}>
+        <span className={`px-3 py-1 text-xs font-semibold bg-white/90 backdrop-blur-md ${inCart ? 'text-muted-sage-dark border-muted-sage/20' : 'text-dusty-rose-dark border-dusty-rose/20'} rounded-full border shadow-sm`}>
           {book.category || 'Books'}
         </span>
       </div>
 
       {/* Login toast */}
       {toastMsg && (
-        <div className="absolute top-14 right-2 z-30 bg-slate-800 text-white text-xs px-3 py-2 rounded-lg border border-fuchsia-500/30 shadow-lg whitespace-nowrap">
+        <div className="absolute top-14 right-2 z-30 bg-white text-bronze-dark text-xs px-3 py-2 rounded-lg border border-dusty-rose/30 shadow-lg whitespace-nowrap">
           🔒 {toastMsg}
         </div>
       )}
@@ -68,15 +68,15 @@ const BookCard = ({ book }) => {
       <button 
         onClick={handleWishlistToggle}
         className={`absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center rounded-full backdrop-blur-md transition-all ${
-          liked ? 'bg-fuchsia-500 text-white shadow-lg shadow-fuchsia-500/30' : 'bg-slate-950/50 text-slate-400 hover:text-fuchsia-500 hover:bg-slate-900'
+          liked ? 'bg-dusty-rose text-white shadow-lg shadow-dusty-rose/30' : 'bg-white/70 text-bronze-light hover:text-dusty-rose hover:bg-white'
         }`}
       >
         <Heart className={`w-4 h-4 ${liked ? 'fill-current' : ''}`} />
       </button>
 
       {/* Cover Image Container */}
-      <div className="relative w-full aspect-[4/5] overflow-hidden bg-slate-800 z-10">
-        <div className="absolute inset-0 bg-slate-900 animate-pulse" />
+      <div className="relative w-full aspect-[4/5] overflow-hidden bg-cream-light z-10">
+        <div className="absolute inset-0 bg-cream animate-pulse" />
         <img 
           src={book.imageUrl || defaultImage} 
           alt={book.title}
@@ -84,25 +84,25 @@ const BookCard = ({ book }) => {
           loading="lazy"
           onError={(e) => e.target.src = defaultImage}
         />
-        {/* Shadow overlay overlay for image depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60" />
+        {/* Shadow overlay for image depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-40" />
       </div>
 
       {/* Content */}
-      <div className="p-5 flex flex-col flex-grow z-10 bg-slate-900">
-        <h3 className={`font-bold text-lg text-white mb-1 line-clamp-2 transition-colors ${inCart ? 'group-hover:text-emerald-400' : 'group-hover:text-fuchsia-400'}`}>
+      <div className="p-5 flex flex-col flex-grow z-10 bg-surface-card">
+        <h3 className={`font-bold text-lg text-bronze-dark mb-1 line-clamp-2 transition-colors ${inCart ? 'group-hover:text-muted-sage-dark' : 'group-hover:text-dusty-rose-dark'}`}>
           {book.title}
         </h3>
-        <p className="text-sm text-slate-400 mb-4 line-clamp-1">{book.author || 'Unknown'}</p>
+        <p className="text-sm text-text-muted mb-4 line-clamp-1">{book.author || 'Unknown'}</p>
         
-        <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-800/60">
-          <span className="text-xl font-bold tracking-tight text-white">
+        <div className="mt-auto flex items-center justify-between pt-4 border-t border-cream-dark/30">
+          <span className="text-xl font-bold tracking-tight text-bronze-dark">
             {formatINR(price)}
           </span>
           <button 
             onClick={() => addToCart(book)}
             disabled={!book.stock || book.stock === 0}
-            className={`flex items-center gap-2 ${inCart ? 'bg-emerald-600 shadow-[0_0_15px_rgba(16,185,129,0.4)]' : 'bg-slate-800 hover:bg-fuchsia-600'} disabled:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-2.5 rounded-xl transition-all min-w-[40px] overflow-hidden group/btn`}
+            className={`flex items-center gap-2 ${inCart ? 'bg-muted-sage shadow-[0_0_15px_rgba(145,157,133,0.3)]' : 'bg-cream-dark hover:bg-dusty-rose hover:text-white'} disabled:bg-cream-dark disabled:opacity-50 disabled:cursor-not-allowed text-white p-2.5 rounded-xl transition-all min-w-[40px] overflow-hidden group/btn`}
             title={book.stock === 0 ? 'Out of stock' : (inCart ? 'Added to Cart' : 'Add to Cart')}
           >
             {inCart ? (
@@ -160,9 +160,9 @@ const BookGrid = ({
 
   return (
     <section className="py-16 relative overflow-hidden">
-      {/* Decorative background elements - Made subtler so they stack well */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-fuchsia-600/5 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-600/5 blur-[150px] rounded-full pointer-events-none" />
+      {/* Decorative background elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-dusty-rose/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-lavender/5 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -172,8 +172,8 @@ const BookGrid = ({
             viewport={{ once: true }}
             className="flex-1"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
-            <p className="text-slate-400 max-w-xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-bronze-dark mb-4">{title}</h2>
+            <p className="text-text-secondary max-w-xl">
               {description}
             </p>
           </motion.div>
@@ -183,7 +183,7 @@ const BookGrid = ({
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Link to="/explore" className="group flex items-center gap-2 text-fuchsia-400 font-medium hover:text-fuchsia-300 transition-colors">
+            <Link to="/explore" className="group flex items-center gap-2 text-dusty-rose font-medium hover:text-dusty-rose-dark transition-colors">
               View all books
               <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
@@ -191,7 +191,7 @@ const BookGrid = ({
         </div>
 
         {error && (
-          <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-lg mb-8">
+          <div className="bg-dusty-rose/10 border border-dusty-rose/20 text-dusty-rose-dark p-4 rounded-lg mb-8">
             {error}
           </div>
         )}
@@ -199,7 +199,7 @@ const BookGrid = ({
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="h-96 bg-slate-900 rounded-2xl border border-slate-800 animate-pulse" />
+              <div key={i} className="h-96 bg-surface-warm rounded-2xl border border-cream-dark/30 animate-pulse" />
             ))}
           </div>
         ) : books.length > 0 ? (
@@ -210,7 +210,7 @@ const BookGrid = ({
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-slate-400">No books available at the moment.</p>
+            <p className="text-text-muted">No books available at the moment.</p>
           </div>
         )}
       </div>

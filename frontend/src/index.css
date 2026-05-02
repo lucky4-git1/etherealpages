@@ -2,14 +2,39 @@
 
 @theme {
   --font-sans: 'Outfit', 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', 'Georgia', serif;
   
-  --color-primary-500: var(--color-fuchsia-500);
-  --color-primary-600: var(--color-fuchsia-600);
+  /* Vintage Color Palette */
+  --color-dusty-rose: #C496A1;
+  --color-dusty-rose-light: #d4adb6;
+  --color-dusty-rose-dark: #a87a86;
   
-  --color-secondary-500: var(--color-indigo-500);
-  --color-secondary-600: var(--color-indigo-600);
+  --color-muted-sage: #919D85;
+  --color-muted-sage-light: #a8b29e;
+  --color-muted-sage-dark: #6d7a62;
   
-  --color-accent: var(--color-cyan-400);
+  --color-lavender: #8E88A3;
+  --color-lavender-light: #a9a4ba;
+  --color-lavender-dark: #6e6888;
+  
+  --color-cream: #EBE1C6;
+  --color-cream-light: #f5f0e0;
+  --color-cream-dark: #d9ccab;
+  
+  --color-bronze: #81785A;
+  --color-bronze-light: #9e9478;
+  --color-bronze-dark: #5e5740;
+  
+  /* Surface colors */
+  --color-surface: #faf6ee;
+  --color-surface-warm: #f0e8d4;
+  --color-surface-card: #ffffff;
+  --color-surface-muted: #f5efe3;
+  
+  /* Text colors */
+  --color-text-primary: #3d3629;
+  --color-text-secondary: #6b6152;
+  --color-text-muted: #9a8e7d;
 
   --animate-fade-in: fade-in 0.5s ease-out;
   --animate-slide-up: slide-up 0.5s ease-out;
@@ -33,8 +58,8 @@
 
 @layer base {
   body {
-    background-color: var(--color-slate-950);
-    color: var(--color-slate-100);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -45,13 +70,13 @@
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-slate-950);
+    background: var(--color-cream-light);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-slate-800);
+    background: var(--color-cream-dark);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-slate-700);
+    background: var(--color-bronze-light);
   }
 }
