@@ -149,7 +149,8 @@ export const CartProvider = ({ children }) => {
   }, 0);
 
   const isInCart = (bookId) => {
-    return cartItems.some(item => item.id === bookId);
+    if (!bookId) return false;
+    return cartItems.some(item => String(item.id) === String(bookId));
   };
 
   return (

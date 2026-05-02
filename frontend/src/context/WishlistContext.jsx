@@ -61,14 +61,14 @@ export const WishlistProvider = ({ children }) => {
             if (isNowLiked && book) {
                 // Add to wishlist
                 setWishlist(prev => {
-                    if (!prev.find(b => b.id === bookId)) {
+                    if (!prev.find(b => String(b.id) === String(bookId))) {
                         return [...prev, book];
                     }
                     return prev;
                 });
             } else {
                 // Remove from wishlist
-                setWishlist(prev => prev.filter(b => b.id !== bookId));
+                setWishlist(prev => prev.filter(b => String(b.id) !== String(bookId)));
             }
             
             return { success: true, liked: isNowLiked };
@@ -80,7 +80,8 @@ export const WishlistProvider = ({ children }) => {
     };
 
     const isLiked = (bookId) => {
-        return wishlist.some(book => book.id === bookId);
+        if (!bookId) return false;
+        return wishlist.some(book => String(book.id) === String(bookId));
     };
 
     const clearWishlist = () => {
