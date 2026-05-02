@@ -25,10 +25,10 @@ const Explore = () => {
         <motion.div
            initial={{ opacity: 0, y: 20 }}
            animate={{ opacity: 1, y: 0 }}
-           className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-8 border border-slate-800 shadow-xl"
+           className="bg-gradient-to-r from-bronze-dark to-bronze rounded-2xl p-8 border border-cream-dark shadow-xl"
         >
-          <h1 className="text-4xl font-bold text-text-primary mb-4">{title}</h1>
-          <p className="text-slate-400 max-w-2xl text-lg">{description}</p>
+          <h1 className="text-4xl font-bold text-white mb-4">{title}</h1>
+          <p className="text-cream max-w-2xl text-lg">{description}</p>
         </motion.div>
       </div>
       
