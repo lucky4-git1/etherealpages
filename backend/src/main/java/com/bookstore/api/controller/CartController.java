@@ -28,17 +28,22 @@ public class CartController {
         return userRepository.findByEmail(email).orElseThrow();
     }
 
+    private Cart getOrCreateCart(User user) {
+        return cartRepository.findByUserId(user.getId())
+                .orElseGet(() -> cartRepository.save(Cart.builder().user(user).build()));
+    }
+
     @GetMapping
     public ResponseEntity<List<CartItem>> getCart() {
         User user = getCurrentUser();
-        var cart = cartRepository.findByUserId(user.getId()).orElseThrow();
+        Cart cart = getOrCreateCart(user);
         return ResponseEntity.ok(cartItemRepository.findByCartId(cart.getId()));
     }
 
     @PostMapping("/add")
     public ResponseEntity<CartItem> addToCart(@RequestParam Long bookId, @RequestParam Integer quantity) {
         User user = getCurrentUser();
-        var cart = cartRepository.findByUserId(user.getId()).orElseThrow();
+        Cart cart = getOrCreateCart(user);
         var book = bookRepository.findById(bookId).orElseThrow();
 
         var existingItem = cartItemRepository.findByCartIdAndBookId(cart.getId(), bookId);

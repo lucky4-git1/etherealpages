@@ -78,16 +78,9 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Split the comma-separated string into a list
-        List<String> origins = Arrays.asList(allowedOrigins.split(","));
-        configuration.setAllowedOrigins(origins);
+        // Allow all origins via patterns to prevent 403 CORS issues from Netlify
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-            "http://localhost:*",
-            "http://127.0.0.1:*",
-            "https://*.netlify.app",
-            "https://*.onrender.com"
-        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Authorization", "Content-Type", "Accept"));
         configuration.setAllowCredentials(true);
