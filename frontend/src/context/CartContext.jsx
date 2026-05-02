@@ -48,25 +48,7 @@ export const CartProvider = ({ children }) => {
     try {
       setError(null);
       
-      if (!user) {
-        setCartItems(prevItems => {
-          const existing = prevItems.find(item => item.id === book.id);
-          if (existing) {
-            return prevItems.map(item => 
-              item.id === book.id ? { ...item, quantity: item.quantity + 1 } : item
-            );
-          }
-          return [...prevItems, { ...book, quantity: 1 }];
-        });
-        return;
-      }
-
-      await api.cart.addItem(book.id, 1);
-      await fetchCart();
-    } catch (err) {
-      console.error('Error adding to cart:', err);
-      setError('Failed to add item to cart');
-      // Fallback
+      // OPTIMISTIC UPDATE: Update UI instantly before waiting for the API
       setCartItems(prevItems => {
         const existing = prevItems.find(item => item.id === book.id);
         if (existing) {
@@ -76,6 +58,23 @@ export const CartProvider = ({ children }) => {
         }
         return [...prevItems, { ...book, quantity: 1 }];
       });
+
+      if (!user) {
+        return; // If not logged in, just keep the optimistic local state
+      }
+
+      // Call backend API in the background
+      await api.cart.addItem(book.id, 1);
+      
+      // Refresh cart from backend to ensure perfect synchronization
+      // We don't await this because we want the UI to feel instant!
+      fetchCart().catch(err => console.error("Background sync failed:", err));
+      
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      setError('Failed to add item to cart');
+      // If the API failed entirely, we might want to revert the optimistic update,
+      // but for now, we leave it in local state so the user doesn't lose their intent.
     }
   };
 
