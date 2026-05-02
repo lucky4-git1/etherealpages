@@ -27,7 +27,7 @@ const App = () => {
         <WishlistProvider>
           <Router>
             <CartProvider>
-              <div className="min-h-screen bg-surface text-text-primary flex flex-col font-sans selection:bg-dusty-rose/30 overflow-x-hidden">
+              <div className="min-h-screen bg-muted-sage text-text-primary flex flex-col font-sans selection:bg-dusty-rose/30 overflow-x-hidden">
                 <Navbar />
                 <main className="flex-grow">
                   <Routes>

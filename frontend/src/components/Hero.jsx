@@ -24,7 +24,7 @@ const Hero = () => {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-card/80 border border-cream-dark/50 backdrop-blur-md mb-8 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-muted-sage animate-ping absolute"></span>
               <span className="flex h-2 w-2 rounded-full bg-muted-sage relative"></span>
-              <span className="text-xs font-medium text-bronze uppercase tracking-wider">Over 10,000+ Premium Books</span>
+              <span className="text-xs font-medium text-cream uppercase tracking-wider">Over 10,000+ Premium Books</span>
             </div>
           </motion.div>
 
@@ -32,7 +32,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-7xl font-bold tracking-tight text-bronze-dark leading-[1.1] mb-6"
+            className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-[1.1] mb-6"
           >
             Discover worlds <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-dusty-rose to-lavender">
@@ -64,7 +64,7 @@ const Hero = () => {
             </Link>
             <Link
               to="/bestsellers"
-              className="flex items-center justify-center gap-2 h-14 px-8 rounded-full bg-surface-card border border-cream-dark text-bronze-dark font-medium text-base transition-all hover:bg-surface-warm flex-shrink-0 w-full sm:w-auto shadow-sm"
+              className="flex items-center justify-center gap-2 h-14 px-8 rounded-full bg-surface-card border border-cream-dark text-white font-medium text-base transition-all hover:bg-surface-warm flex-shrink-0 w-full sm:w-auto shadow-sm"
             >
               View Bestsellers
             </Link>

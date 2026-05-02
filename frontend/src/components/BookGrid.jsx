@@ -59,7 +59,7 @@ const BookCard = ({ book }) => {
 
       {/* Login toast */}
       {toastMsg && (
-        <div className="absolute top-14 right-2 z-30 bg-white text-bronze-dark text-xs px-3 py-2 rounded-lg border border-dusty-rose/30 shadow-lg whitespace-nowrap">
+        <div className="absolute top-14 right-2 z-30 bg-white text-white text-xs px-3 py-2 rounded-lg border border-dusty-rose/30 shadow-lg whitespace-nowrap">
           🔒 {toastMsg}
         </div>
       )}
@@ -68,7 +68,7 @@ const BookCard = ({ book }) => {
       <button 
         onClick={handleWishlistToggle}
         className={`absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center rounded-full backdrop-blur-md transition-all ${
-          liked ? 'bg-dusty-rose text-white shadow-lg shadow-dusty-rose/30' : 'bg-white/70 text-bronze-light hover:text-dusty-rose hover:bg-white'
+          liked ? 'bg-dusty-rose text-white shadow-lg shadow-dusty-rose/30' : 'bg-white/70 text-cream-light hover:text-dusty-rose hover:bg-white'
         }`}
       >
         <Heart className={`w-4 h-4 ${liked ? 'fill-current' : ''}`} />
@@ -90,13 +90,13 @@ const BookCard = ({ book }) => {
 
       {/* Content */}
       <div className="p-5 flex flex-col flex-grow z-10 bg-surface-card">
-        <h3 className={`font-bold text-lg text-bronze-dark mb-1 line-clamp-2 transition-colors ${inCart ? 'group-hover:text-muted-sage-dark' : 'group-hover:text-dusty-rose-dark'}`}>
+        <h3 className={`font-bold text-lg text-white mb-1 line-clamp-2 transition-colors ${inCart ? 'group-hover:text-muted-sage-dark' : 'group-hover:text-dusty-rose-dark'}`}>
           {book.title}
         </h3>
         <p className="text-sm text-text-muted mb-4 line-clamp-1">{book.author || 'Unknown'}</p>
         
         <div className="mt-auto flex items-center justify-between pt-4 border-t border-cream-dark/30">
-          <span className="text-xl font-bold tracking-tight text-bronze-dark">
+          <span className="text-xl font-bold tracking-tight text-white">
             {formatINR(price)}
           </span>
           <button 
@@ -172,7 +172,7 @@ const BookGrid = ({
             viewport={{ once: true }}
             className="flex-1"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-bronze-dark mb-4">{title}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
             <p className="text-text-secondary max-w-xl">
               {description}
             </p>

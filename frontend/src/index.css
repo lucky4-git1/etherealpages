@@ -31,10 +31,10 @@
   --color-surface-card: #ffffff;
   --color-surface-muted: #f5efe3;
   
-  /* Text colors */
-  --color-text-primary: #3d3629;
-  --color-text-secondary: #6b6152;
-  --color-text-muted: #9a8e7d;
+  /* Text colors - light for contrast against sage bg */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e8e4d9;
+  --color-text-muted: #c8c4b8;
 
   --animate-fade-in: fade-in 0.5s ease-out;
   --animate-slide-up: slide-up 0.5s ease-out;
@@ -58,7 +58,7 @@
 
 @layer base {
   body {
-    background-color: var(--color-surface);
+    background-color: var(--color-muted-sage);
     color: var(--color-text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;

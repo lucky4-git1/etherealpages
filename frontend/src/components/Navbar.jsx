@@ -49,16 +49,16 @@ const Navbar = () => {
           <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-dusty-rose to-lavender shadow-lg shadow-dusty-rose/20 transition-transform group-hover:scale-105">
             <BookOpen className="h-5 w-5 text-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-bronze-dark transition-opacity group-hover:opacity-90">
-            Ethereal<span className="font-light text-bronze-light">Pages</span>
+          <span className="text-xl font-bold tracking-tight text-white transition-opacity group-hover:opacity-90">
+            Ethereal<span className="font-light text-cream-light">Pages</span>
           </span>
         </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <Link to="/" className="text-bronze hover:text-bronze-dark transition-colors">Home</Link>
-          <Link to="/explore" className="text-bronze hover:text-bronze-dark transition-colors">Explore</Link>
-          <Link to="/categories" className="text-bronze hover:text-bronze-dark transition-colors">Categories</Link>
+          <Link to="/" className="text-cream hover:text-white transition-colors">Home</Link>
+          <Link to="/explore" className="text-cream hover:text-white transition-colors">Explore</Link>
+          <Link to="/categories" className="text-cream hover:text-white transition-colors">Categories</Link>
           <Link to="/bestsellers" className="text-dusty-rose font-semibold uppercase tracking-tighter hover:text-dusty-rose-dark transition-colors">Bestsellers</Link>
         </div>
 
@@ -81,7 +81,7 @@ const Navbar = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search books..."
-                    className="w-full bg-white border border-cream-dark rounded-full py-1.5 pl-4 pr-3 text-sm text-bronze-dark focus:outline-none focus:border-dusty-rose shadow-lg placeholder:text-text-muted"
+                    className="w-full bg-white border border-cream-dark rounded-full py-1.5 pl-4 pr-3 text-sm text-white focus:outline-none focus:border-dusty-rose shadow-lg placeholder:text-text-muted"
                   />
                 </motion.form>
               )}
@@ -91,12 +91,12 @@ const Navbar = () => {
                 setIsSearchOpen(!isSearchOpen);
                 if (!isSearchOpen) setTimeout(() => searchInputRef.current?.focus(), 100);
               }} 
-              className="text-bronze-light hover:text-bronze-dark transition-colors relative z-10"
+              className="text-cream-light hover:text-white transition-colors relative z-10"
             >
               <Search className="h-5 w-5" />
             </button>
           </div>
-          <Link to="/wishlist" className="relative text-bronze-light hover:text-dusty-rose transition-colors">
+          <Link to="/wishlist" className="relative text-cream-light hover:text-dusty-rose transition-colors">
             <Heart className="h-5 w-5" />
             {wishlist.length > 0 && (
               <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-dusty-rose text-[10px] font-bold text-white shadow-sm">
@@ -104,7 +104,7 @@ const Navbar = () => {
               </span>
             )}
           </Link>
-          <Link to="/cart" className="relative text-bronze-light hover:text-muted-sage transition-colors">
+          <Link to="/cart" className="relative text-cream-light hover:text-muted-sage transition-colors">
             <ShoppingCart className="h-5 w-5" />
             {cartCount > 0 && (
               <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-muted-sage text-[10px] font-bold text-white shadow-sm">
@@ -116,17 +116,17 @@ const Navbar = () => {
           
           {user ? (
             <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-bronze">Hi, {user.name.split(' ')[0]}</span>
+              <span className="text-sm font-medium text-cream">Hi, {user.name.split(' ')[0]}</span>
               <button 
                 onClick={logout}
-                className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-surface-warm px-5 py-2 font-medium text-bronze-dark transition-all duration-300 hover:bg-cream-dark border border-cream-dark/50"
+                className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-surface-warm px-5 py-2 font-medium text-white transition-all duration-300 hover:bg-cream-dark border border-cream-dark/50"
               >
                 <span className="relative z-10 text-sm">Sign Out</span>
               </button>
             </div>
           ) : (
             <>
-              <Link to="/login" className="text-sm font-medium text-bronze hover:text-bronze-dark transition-colors">
+              <Link to="/login" className="text-sm font-medium text-cream hover:text-white transition-colors">
                 Sign In
               </Link>
               <Link
@@ -141,7 +141,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-bronze hover:text-bronze-dark"
+          className="md:hidden text-cream hover:text-white"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -158,21 +158,21 @@ const Navbar = () => {
             className="md:hidden border-t border-cream-dark/30 bg-cream/95 backdrop-blur-lg"
           >
             <div className="container mx-auto px-6 py-6 flex flex-col gap-6">
-              <Link to="/" className="text-lg font-medium text-bronze hover:text-bronze-dark" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-              <Link to="/explore" className="text-lg font-medium text-bronze hover:text-bronze-dark" onClick={() => setMobileMenuOpen(false)}>Explore</Link>
-              <Link to="/categories" className="text-lg font-medium text-bronze hover:text-bronze-dark" onClick={() => setMobileMenuOpen(false)}>Categories</Link>
+              <Link to="/" className="text-lg font-medium text-cream hover:text-white" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+              <Link to="/explore" className="text-lg font-medium text-cream hover:text-white" onClick={() => setMobileMenuOpen(false)}>Explore</Link>
+              <Link to="/categories" className="text-lg font-medium text-cream hover:text-white" onClick={() => setMobileMenuOpen(false)}>Categories</Link>
               <Link to="/bestsellers" className="text-lg font-bold text-dusty-rose" onClick={() => setMobileMenuOpen(false)}>Bestsellers</Link>
               <div className="h-px w-full bg-cream-dark"></div>
               {user ? (
                 <div className="flex flex-col gap-4">
-                  <span className="text-center font-medium text-bronze">Welcome, {user.name}</span>
-                  <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="w-full rounded-lg border border-cream-dark py-3 text-center font-medium text-bronze hover:bg-surface-warm transition-colors">
+                  <span className="text-center font-medium text-cream">Welcome, {user.name}</span>
+                  <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="w-full rounded-lg border border-cream-dark py-3 text-center font-medium text-cream hover:bg-surface-warm transition-colors">
                     Sign Out
                   </button>
                 </div>
               ) : (
                 <div className="flex gap-4">
-                  <Link to="/login" className="flex-1 rounded-lg border border-cream-dark py-3 text-center font-medium text-bronze" onClick={() => setMobileMenuOpen(false)}>
+                  <Link to="/login" className="flex-1 rounded-lg border border-cream-dark py-3 text-center font-medium text-cream" onClick={() => setMobileMenuOpen(false)}>
                     Sign In
                   </Link>
                   <Link to="/register" className="flex-1 rounded-lg bg-gradient-to-br from-dusty-rose to-lavender py-3 text-center font-medium text-white shadow-lg" onClick={() => setMobileMenuOpen(false)}>

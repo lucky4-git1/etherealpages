@@ -25,7 +25,7 @@ const Categories = () => {
         animate={{ opacity: 1, y: 0 }}
         className="mb-12 text-center"
       >
-        <h1 className="text-4xl lg:text-5xl font-bold text-bronze-dark mb-4">Browse by Category</h1>
+        <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Browse by Category</h1>
         <p className="text-text-secondary max-w-2xl mx-auto text-lg">Find your next favorite book by exploring our carefully curated genres.</p>
       </motion.div>
 
@@ -40,7 +40,7 @@ const Categories = () => {
             className="group relative cursor-pointer overflow-hidden rounded-2xl bg-surface-card border border-cream-dark/50 p-8 hover:border-dusty-rose/30 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
-            <h3 className="text-2xl font-bold text-bronze-dark mb-2">{cat.name}</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">{cat.name}</h3>
             <p className="text-text-secondary font-medium">{cat.count} Books available</p>
             
             <div className={`mt-6 h-1 w-12 bg-gradient-to-r ${cat.color} rounded-full transition-all duration-300 group-hover:w-full`}></div>
