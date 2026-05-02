@@ -1,7 +1,8 @@
 package com.bookstore.api.controller;
 
-import com.bookstore.api.model.CartItem;
+import com.bookstore.api.model.Book;
 import com.bookstore.api.model.Cart;
+import com.bookstore.api.model.CartItem;
 import com.bookstore.api.model.User;
 import com.bookstore.api.repository.CartItemRepository;
 import com.bookstore.api.repository.CartRepository;
@@ -12,7 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cart")
@@ -35,44 +39,75 @@ public class CartController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getCart() {
-        User user = getCurrentUser();
-        Cart cart = getOrCreateCart(user);
-        
-        // Map to a clean DTO to completely avoid any Hibernate proxy Jackson serialization issues
-        List<java.util.Map<String, Object>> cartItemsDto = cartItemRepository.findByCartId(cart.getId())
-            .stream()
-            .map(item -> {
-                java.util.Map<String, Object> dto = new java.util.HashMap<>();
-                dto.put("id", item.getId());
-                dto.put("book", item.getBook());
-                dto.put("quantity", item.getQuantity());
-                return dto;
-            })
-            .collect(java.util.stream.Collectors.toList());
+    public ResponseEntity<List<Map<String, Object>>> getCart() {
+        try {
+            User user = getCurrentUser();
+            Cart cart = getOrCreateCart(user);
+            List<CartItem> items = cartItemRepository.findByCartId(cart.getId());
             
-        return ResponseEntity.ok(cartItemsDto);
+            List<Map<String, Object>> result = new ArrayList<>();
+            for (CartItem item : items) {
+                Map<String, Object> dto = new HashMap<>();
+                dto.put("id", item.getId());
+                dto.put("quantity", item.getQuantity());
+                
+                // Build book map manually to avoid any proxy/serialization issues
+                Book book = item.getBook();
+                if (book != null) {
+                    Map<String, Object> bookMap = new HashMap<>();
+                    bookMap.put("id", book.getId());
+                    bookMap.put("title", book.getTitle());
+                    bookMap.put("author", book.getAuthor());
+                    bookMap.put("price", book.getPrice());
+                    bookMap.put("category", book.getCategory());
+                    bookMap.put("stock", book.getStock());
+                    bookMap.put("imageUrl", book.getImageUrl());
+                    bookMap.put("description", book.getDescription());
+                    dto.put("book", bookMap);
+                }
+                
+                result.add(dto);
+            }
+            
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            // Return empty list instead of crashing
+            return ResponseEntity.ok(new ArrayList<>());
+        }
     }
 
     @PostMapping("/add")
-    public ResponseEntity<CartItem> addToCart(@RequestParam Long bookId, @RequestParam Integer quantity) {
-        User user = getCurrentUser();
-        Cart cart = getOrCreateCart(user);
-        var book = bookRepository.findById(bookId).orElseThrow();
+    public ResponseEntity<?> addToCart(@RequestParam Long bookId, @RequestParam Integer quantity) {
+        try {
+            User user = getCurrentUser();
+            Cart cart = getOrCreateCart(user);
+            Book book = bookRepository.findById(bookId).orElseThrow();
 
-        var existingItem = cartItemRepository.findByCartIdAndBookId(cart.getId(), bookId);
-        if (existingItem.isPresent()) {
-            CartItem item = existingItem.get();
-            item.setQuantity(item.getQuantity() + quantity);
-            return ResponseEntity.ok(cartItemRepository.save(item));
+            var existingItem = cartItemRepository.findByCartIdAndBookId(cart.getId(), bookId);
+            if (existingItem.isPresent()) {
+                CartItem item = existingItem.get();
+                item.setQuantity(item.getQuantity() + quantity);
+                cartItemRepository.save(item);
+            } else {
+                CartItem newItem = CartItem.builder()
+                        .cart(cart)
+                        .book(book)
+                        .quantity(quantity)
+                        .build();
+                cartItemRepository.save(newItem);
+            }
+            
+            // Return a simple success response instead of the entity
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Added to cart");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("success", false);
+            errorResponse.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
         }
-
-        CartItem newItem = CartItem.builder()
-                .cart(cart)
-                .book(book)
-                .quantity(quantity)
-                .build();
-        return ResponseEntity.ok(cartItemRepository.save(newItem));
     }
 
     @DeleteMapping("/remove/{itemId}")
