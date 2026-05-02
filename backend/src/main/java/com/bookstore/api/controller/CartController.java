@@ -34,10 +34,23 @@ public class CartController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CartItem>> getCart() {
+    public ResponseEntity<?> getCart() {
         User user = getCurrentUser();
         Cart cart = getOrCreateCart(user);
-        return ResponseEntity.ok(cartItemRepository.findByCartId(cart.getId()));
+        
+        // Map to a clean DTO to completely avoid any Hibernate proxy Jackson serialization issues
+        List<java.util.Map<String, Object>> cartItemsDto = cartItemRepository.findByCartId(cart.getId())
+            .stream()
+            .map(item -> {
+                java.util.Map<String, Object> dto = new java.util.HashMap<>();
+                dto.put("id", item.getId());
+                dto.put("book", item.getBook());
+                dto.put("quantity", item.getQuantity());
+                return dto;
+            })
+            .collect(java.util.stream.Collectors.toList());
+            
+        return ResponseEntity.ok(cartItemsDto);
     }
 
     @PostMapping("/add")
